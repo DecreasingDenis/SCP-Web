@@ -1,9 +1,9 @@
-# SCP-Web
-Progetto SCP scolastico di fine quinta.[https://github.com/DecreasingDenis/SCP-Web](#SCP-Web)
+# [SCP-Web](https://github.com/DecreasingDenis/SCP-Web)
+Progetto SCP scolastico di fine quinta.
 
 ## Struttura
-> -index.html: pagina di benvenuto dall'aspetto normale, due opzioni di login-registrazione oltre a una presentazione generale del lavoro e del database
-> 
+-index.html: pagina di benvenuto dall'aspetto normale, due opzioni di login-registrazione oltre a una presentazione generale del lavoro e del database
+- 
 
 
 ### aiuti
