@@ -25,7 +25,7 @@ Personale: <ins>user_ID</ins>, username, password, email, name, surname, clearan
 Test: <ins>test_ID</ins>, scp*, class_D*, scientist*, description, result, test_Date, start_Time, duration, end_Time, ...<br>
 SCP: <ins>scp_Number</ins>, danger_Class, description, safety_Measures, status, containment_Date, ...<br>
 Report: <ins>report_ID</ins>, scp_Breached*, reporter*, incident_description, incident_Date, start_Time, duration, end_Time, ...<br>
-*datbase.sql*
+[*datbase.sql*](https://github.com/DecreasingDenis/SCP-Web/blob/main/scpDatabase.sql)
 
 ### aiuti
 
