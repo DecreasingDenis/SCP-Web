@@ -4,7 +4,7 @@ Progetto SCP scolastico di fine quinta.
 
 ## Struttura
 
--index.html: pagina di benvenuto dall'aspetto normale, due opzioni di login-registrazione oltre a una presentazione generale del lavoro e del database
+-index.html: pagina di benvenuto scroll, topbar con login/sign-in e spiegaione della sigla spezzata per acronimo del sito, messa su "fogli" e con fittizie cancellazioni dei documenti. Aspetti scuri che funzionano con il tema dark.
 
 
 ## Database
