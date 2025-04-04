@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Registration</title>
+</head>
+
+<body>
+    
+    <h2>Registration Here!</h2>
+    
+    <form action="register.php" method="post">
+
+        <!-- campo per il nome -->
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <!-- campo per il cognome -->
+        <label for="surname">Surname:</label><br>
+        <input type="text" id="surname" name="surname" required><br><br>
+
+        <!-- campo per la data di nascita -->
+        <label for="birthDate">Birth Date:</label><br>
+        <input type="date" id="birthdate" name="birthDate" required><br><br>
+
+        <!-- campo per il sesso -->
+        <label for="gender">Gender:</label><br>
+        <select id="gender" name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select><br><br>
+
+        <!-- campo per la email -->
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <!-- campo per il username -->
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <!-- campo per la password -->
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <!-- campo per la conferma della password -->
+        <label for="confirm_password">Confirm Password:</label><br>
+        <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+
+        <input type="checkbox" id="terms" name="terms" value="accepted" required>
+        <label for="terms"> I accept the terms and conditions</label><br><br>
+
+        <input type="submit" value="Register">
+
+    </form>
+
+</body>
+</html>
