@@ -4,16 +4,16 @@ CREATE DATABASE scpDatabase;
 CREATE TABLE personale (
 
   user_ID INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR NOT NULL,
-  password VARCHAR NOT NULL,
-  email TINYTEXT NOT NULL,
-  name VARCHAR,
-  surname VARCHAR,
+  username VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  surname VARCHAR(255) NOT NULL,
   clearance_Level ENUM('0', '1', '2', '3', '4', '5', 'O5') NOT NULL,
-  birth_Date DATE,
-  enroll_Date DATE,
+  birth_Date DATE NOT NULL,
+  enroll_Date DATE NOT NULL,
   status ENUM('active', 'inactive', 'dead'),
-  gender ENUM('other', 'male', 'female'),
+  gender ENUM('other', 'male', 'female') NOT NULL,
   nationality VARCHAR(150),
   departmente ENUM('scientific', 'class-d', 'mobile task force', 'security', 'internal security', 'rapid response team', 'civil', 'administration') NOT NULL
   -- maybe more...
