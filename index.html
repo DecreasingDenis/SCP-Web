@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
+    <!-- Basic Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCP Foundation - Secure. Contain. Protect.</title>
     <style>
+        /* CSS Variables for easy theming*/
         :root {
-            --bg-dark: #121212;
-            --text-light: #e0e0e0;
-            --accent-red: #c00;
-            --accent-blue: #0066cc;
-            --container-bg: #1e1e1e;
-            --nav-height: 60px;
-            --threat-level: 0;
+            --bg-dark: #121212;        /* Dark background color */
+            --text-light: #e0e0e0;     /* Light text color */
+            --accent-red: #c00;        /* SCP brand red */
+            --accent-blue: #0066cc;    /* Complementary blue */
+            --container-bg: #1e1e1e;   /* Container background */
+            --nav-height: 60px;        /* Fixed nav bar height */
+            --threat-level: 0;         /* Dynamic threat level */
         }
-        
+
+        /* Reset and Base Styles */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        
+
+        /* Main Body Styling */
         body {
-            font-family: 'Courier New', monospace;
+            font-family: 'Courier New', monospace;        /* Typewriter font for docs */
             background-color: var(--bg-dark);
             color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
-            background-image: url('paper-texture.jpg');
+            background-image: url('paper-texture.jpg');   /* Paper texture */
             position: relative;
         }
-        
+
+        /* TOP SECRET Watermark */
         body::after {
             content: "TOP SECRET";
             position: fixed;
@@ -38,7 +44,7 @@
             left: 50%;
             transform: translate(-50%, -50%) rotate(-45deg);
             font-size: 20vw;
-            color: rgba(200,0,0,0.05);
+            color: rgba(200,0,0,0.05);    /* Subtle red watermark */
             pointer-events: none;
             z-index: -1;
             font-weight: bold;
@@ -50,20 +56,22 @@
             top: 0;
             width: 100%;
             height: var(--nav-height);
-            background-color: rgba(30, 30, 30, 0.95);
+            background-color: rgba(30, 30, 30, 0.95);    /* Semi-trasparent */
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between;              /* Space between SCP of day and buttons */
             align-items: center;
             padding: 0 2rem;
             border-bottom: 1px solid var(--accent-red);
-            z-index: 1000;
+            z-index: 1000;                               /* Ensures nav stays on top */
         }
-        
+
+        /* Navigation Links Container */
         .nav-links {
             display: flex;
             gap: 1rem;
         }
-        
+
+        /* Navigation Button Styles */
         .nav-btn {
             padding: 0.5rem 1rem;
             background-color: transparent;
@@ -76,18 +84,21 @@
             text-decoration: none;
             font-size: 0.9rem;
         }
-        
+
+        /* Button Hover Effect */
         .nav-btn:hover {
             background-color: var(--accent-red);
         }
-        
+
+        /* SCP of the Day Styling */
         .scp-of-the-day {
             color: var(--accent-red);
             font-weight: bold;
             text-decoration: none;
-            animation: pulse 2s infinite;
+            animation: pulse 2s infinite;    /* Attention-grabbing pulse */
         }
-        
+
+        /* Pulsing Animation */
         @keyframes pulse {
             0% { opacity: 0.8; }
             50% { opacity: 1; text-shadow: 0 0 5px var(--accent-red); }
@@ -106,11 +117,13 @@
             z-index: 1000;
             transition: all 0.5s ease;
         }
-        
+
+        /* Threat Level Text */
         .threat-level::before {
             content: "THREAT LEVEL: ";
         }
-        
+
+        /* Dynamic Threat Level */
         .threat-level::after {
             content: "NORMAL";
             color: #0f0;
@@ -118,11 +131,12 @@
         
         /* Main Content */
         main {
-            margin-top: var(--nav-height);
+            margin-top: var(--nav-height);    /* Push below fixed nav */
         }
-        
+
+        /* Section Styling */
         section {
-            min-height: 100vh;
+            min-height: 100vh;                /* Full viewport sections */
             padding: 4rem 2rem;
             display: flex;
             flex-direction: column;
@@ -134,14 +148,16 @@
             border-bottom: 1px solid #333;
             background-color: rgba(30,30,30,0.7);
             background-image: url('paper-texture-light.jpg');
-            background-blend-mode: overlay;
+            background-blend-mode: overlay;    /* Blend paper texture */
         }
-        
+
+        /* Hero Section Special Styling */
         .hero {
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('scp-bg.jpg') no-repeat center center/cover;
             background-blend-mode: overlay;
         }
-        
+
+        /* Logo Styling with Animation */
         .logo {
             width: 200px;
             margin-bottom: 1.5rem;
@@ -149,7 +165,8 @@
             transform: translateY(20px);
             animation: fadeIn 1s ease forwards 0.3s;
         }
-        
+
+        /* Main Heading */
         h1 {
             font-size: 3rem;
             letter-spacing: 0.2rem;
@@ -159,7 +176,8 @@
             transform: translateY(20px);
             animation: fadeIn 1s ease forwards 0.5s;
         }
-        
+
+        /* Subtitle Text */
         .subtitle {
             font-size: 1.2rem;
             max-width: 800px;
@@ -168,7 +186,8 @@
             transform: translateY(20px);
             animation: fadeIn 1s ease forwards 0.7s;
         }
-        
+
+        /* Reports Button */
         .btn-reports {
             padding: 0.8rem 2rem;
             background-color: var(--accent-red);
@@ -182,13 +201,14 @@
             transform: translateY(20px);
             animation: fadeIn 1s ease forwards 0.9s;
         }
-        
+
+        /* Button Hover Effect */
         .btn-reports:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(200,0,0,0.3);
         }
         
-        /* SCP Sections */
+        /* SCP Content Sections */
         .scp-section {
             max-width: 800px;
             margin: 0 auto;
@@ -196,19 +216,22 @@
             transform: translateY(50px);
             transition: all 1s ease;
         }
-        
+
+        /* Visible State for Scroll Animation */
         .scp-section.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
+        /* Section Headings */
         .scp-section h2 {
             color: var(--accent-red);
             margin-bottom: 2rem;
             font-size: 2.5rem;
             text-transform: uppercase;
         }
-        
+
+        /* Paragraph Styling */
         .scp-section p {
             font-size: 1.1rem;
             margin-bottom: 2rem;
@@ -216,20 +239,22 @@
             position: relative;
             padding: 0.5rem;
         }
-        
+
+        /* Redacted Text Effect */
         .redacted {
             background-color: black;
             color: black;
             padding: 0 0.2rem;
             transition: all 0.3s ease;
         }
-        
+
+        /* Reveal redacted text on hover */
         .redacted:hover {
             color: var(--text-light);
             background-color: transparent;
         }
         
-        /* Acronym Animation */
+        /* SCP Acronym Animation */
         .acronym {
             margin-top: 3rem;
             font-size: 1.5rem;
@@ -238,7 +263,8 @@
             transform: translateY(20px);
             animation: fadeIn 1.5s ease forwards 1s;
         }
-        
+
+        /* Colored Initial Letters */
         .acronym span {
             display: inline-block;
             margin: 0 0.5rem;
@@ -247,7 +273,7 @@
             font-size: 2rem;
         }
         
-        /* Breach Warning */
+        /* Breach Warning Modal */
         .breach-warning {
             position: fixed;
             top: 50%;
@@ -263,17 +289,20 @@
             animation: alarmPulse 0.5s infinite alternate;
         }
         
+        /* Pulsing Alarm Effect */
         @keyframes alarmPulse {
             from { box-shadow: 0 0 10px var(--accent-red); }
             to { box-shadow: 0 0 30px var(--accent-red); }
         }
-        
+
+        /* Warning Heading */
         .breach-warning h3 {
             color: var(--accent-red);
             font-size: 2rem;
             margin-bottom: 1rem;
         }
-        
+
+        /* Dismiss Button */
         .breach-warning-btn {
             padding: 0.5rem 1rem;
             background-color: var(--accent-red);
@@ -284,7 +313,7 @@
             margin-top: 1rem;
         }
         
-        /* Footer */
+        /* Footer Styling */
         footer {
             text-align: center;
             padding: 2rem;
@@ -292,20 +321,22 @@
             font-size: 0.9rem;
             background-color: var(--container-bg);
         }
-        
+
+        /* Warning Text */
         .warning {
             color: var(--accent-red);
             margin-top: 1rem;
         }
         
-        /* Animations */
+        /* Fade-in Animation */
         @keyframes fadeIn {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -338,7 +369,7 @@
     </style>
 </head>
 <body>
-    <!-- Breach Warning -->
+    <!-- Breach Warning Modal (hidden by default) -->
     <div class="breach-warning" id="breachWarning">
         <h3>CONTAINMENT BREACH DETECTED</h3>
         <p>Security protocols activated. All personnel report to designated safe zones.</p>
@@ -347,7 +378,10 @@
 
     <!-- Top Navigation Bar -->
     <nav>
+        <!-- SCP of the Day Link -->
         <a href="scp-of-the-day.html" class="scp-of-the-day">SCP OF THE DAY: <span id="currentSCP">SCP-●●●●</span></a>
+        
+        <!-- Navigation Links -->
         <div class="nav-links">
             <a href="login.html" class="nav-btn">LOGIN</a>
             <a href="signup.html" class="nav-btn">SIGN UP</a>
@@ -359,6 +393,7 @@
     
     <!-- Main Content -->
     <main>
+        <!-- Hero Section -->
         <section class="hero">
             <img src="scp-logo.png" alt="SCP Foundation Logo" class="logo">
             <h1>SECURE. CONTAIN. PROTECT.</h1>
@@ -412,23 +447,27 @@
                 civilian populations. When complete containment isn't possible, we develop <span class="redacted">[CONTINGENCY]</span> plans
                 and countermeasures to minimize risk to human life and civilization.
             </p>
-            
+
+            <!-- SCP Acronym Display -->
             <div class="acronym">
                 <span>S</span>ECURE <span>C</span>ONTAIN <span>P</span>ROTECT
             </div>
         </section>
     </main>
-    
+
+    <!-- Footer -->
     <footer>
         <p>Unauthorized access is strictly prohibited. All activities are monitored.</p>
         <p class="warning">Security Clearance Level 1 or higher required for database access.</p>
     </footer>
 
     <script>
-        // Scroll animation for sections
+        // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
+            //Section Scroll Animations
             const sections = document.querySelectorAll('.scp-section');
-            
+
+            // Create intersection observer for scroll-trigger animations
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -436,14 +475,15 @@
                     }
                 });
             }, {
-                threshold: 0.1
+                threshold: 0.1    // Trigger when 10% of section is visible
             });
-            
+
+            // Observe all sections
             sections.forEach(section => {
                 observer.observe(section);
             });
 
-            // Threat Level Indicator
+            // Threat Level Indicator Logic
             const threatLevel = document.getElementById('threatLevel');
             const threatMessages = [
                 { level: "NORMAL", color: "#0f0" },
@@ -452,21 +492,24 @@
                 { level: "CRITICAL", color: "#f00" }
             ];
 
+            // Update threat level based on scroll position
             window.addEventListener('scroll', function() {
                 const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
                 const threatIndex = Math.min(Math.floor(scrollPercent * threatMessages.length), threatMessages.length - 1);
-                
+
+                // Update CSS variable and threat level display
                 threatLevel.style.setProperty('--threat-level', threatIndex);
                 threatLevel.querySelector('::after').textContent = threatMessages[threatIndex].level;
                 threatLevel.querySelector('::after').style.color = threatMessages[threatIndex].color;
             });
 
-            // Random Breach Warning
+            // Random Breach Warning Function
             function showRandomBreachWarning() {
                 if (Math.random() < 0.3) { // 30% chance
                     const breachWarning = document.getElementById('breachWarning');
                     breachWarning.style.display = 'block';
-                    
+
+                    // Dismiss button handler
                     document.getElementById('dismissBreach').addEventListener('click', function() {
                         breachWarning.style.display = 'none';
                     });
@@ -478,15 +521,16 @@
                 }
             }
 
-            // Show warning after 5-15 seconds
+            // Show warning after random 5-15 seconds delay
             setTimeout(showRandomBreachWarning, 5000 + Math.random() * 10000);
 
-            // Random SCP of the Day
+            // Random SCP of the Day Selection (to adjust)
             const scpList = [
                 "SCP-173", "SCP-682", "SCP-096", "SCP-106", "SCP-049", 
                 "SCP-999", "SCP-914", "SCP-3008", "SCP-1762", "SCP-2521"
             ];
-            
+
+            // Display random SCP from list
             document.getElementById('currentSCP').textContent = scpList[Math.floor(Math.random() * scpList.length)];
         });
     </script>
