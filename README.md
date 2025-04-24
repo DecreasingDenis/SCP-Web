@@ -61,4 +61,4 @@ Report: <ins>report_ID</ins>, scp_Breached*, reporter*, incident_description, in
 
 [*README.md syntax*](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 
-__DeepSeek/Gemini aiuto AI (copilot)__
+__DeepSeek/Gemini/Havier69Rusca aiuto AI (copilot)__
