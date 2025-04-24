@@ -16,7 +16,9 @@ Caratteristiche chiave:<br>
 ## Cosa si usa
 
 Il software usato per svolgere il progetto è _HTML_, _CSS_, _JS_, _PHP_ e _MySQL_.<br>
--HTML: 
+**-HTML:** Lo scheletro della applicazione web. Definisce la strutture di tutte le pagine, inserisce il metadata (titolo della pagina, codifica dei caratteri, impostazioni della finestra di visualizzazione), crea container per content dinamico, si collega a CSS/JS file e PHP endpoints.<br>
+**-CSS:** Controlla lo stile della visualizzazione e disposizione. stilizza elementi HTML per abbinarsi all'aesthetic SCP (dark theme, accenti rossi, "classified document" look), implementa design reattivo, aggiunge animationi (fae-in, hover effects for redacted text), gestisce stati UI dinamici[?].<br>
+**-JS:** 
 
 ## Struttura
 
