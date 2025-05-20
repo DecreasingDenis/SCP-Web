@@ -1,10 +1,15 @@
 <?php
 
-//dettagli per la connesione al database
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$dbname = "scpDatabase";
+// Config file approach
+require_once 'config.php'; // Contiene le credenziali del database
+
+// Function to sanitize input data
+function sanitizeInput($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 
 // Crea la connesione e controlla se si è connesso senza errori
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -13,14 +18,17 @@ if ($conn->connect_error) {
 }
 
 // Ottiene i dati dal form
-$name =             $_POST['name'];
-$surname =          $_POST['surname'];
-$birthdate =        $_POST['birthdate'];
-$gender =           $_POST['gender'];
-$email =            $_POST['email'];
-$username =         $_POST['username'];
-$password =         $_POST['password'];
-$confirm_password = $_POST['confirm_password'];
+// Sanitize and validate input data
+$name = sanitizeInput($_POST['name'] ?? '');
+$surname = sanitizeInput($_POST['surname'] ?? '');
+$birthdate = sanitizeInput($_POST['birthdate'] ?? '');
+$gender = sanitizeInput($_POST['gender'] ?? '');
+$email = sanitizeInput($_POST['email'] ?? '');
+$username = sanitizeInput($_POST['username'] ?? '');
+$password = $_POST['password'] ?? '';
+$confirm_password = $_POST['confirm_password'] ?? '';
+$terms = isset($_POST['terms']) ? $_POST['terms'] : '';
+
 
 // Controlla che le password siano uguali, se lo sono hasha la password
 if ($password != $confirm_password) {
