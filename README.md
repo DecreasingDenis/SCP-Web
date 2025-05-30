@@ -53,6 +53,10 @@ SCP: <ins>scp_Number</ins>, danger_Class, description, safety_Measures, status, 
 Report: <ins>report_ID</ins>, scp_Breached*, reporter*, incident_description, incident_Date, start_Time, duration, end_Time, ...<br>
 [*datbase.sql*](https://github.com/DecreasingDenis/SCP-Web/blob/main/scpDatabase.sql)
 
+## Aspetto
+
+L'aspetto generale del sito sarà dark, con spesso messaggi oscurati per inscenare segretezza e sicurezza.
+
 ### aiuti
 
 [*repos help*](https://docs.github.com/en/repositories/creating-and-managing-repositories/about-repositories)
