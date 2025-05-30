@@ -101,18 +101,25 @@ try {
     // Hash password con la funzione di PHP
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Controlla se la casella è stata accettata
-    $terms = isset($_POST['terms']) ? $_POST['terms'] : ""; 
-    if ($terms != "accepted") {
-        echo "You must accept the terms and conditions.";
-        $conn->close();
-        exit();
-    }
+    // prepara la SQL statement, più sicura di direttamente eseguirla
+    $stmt = $pdo->prepare("INSERT INTO personale (name, surname, birth_Date, gender, email, username, password) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-    // SQL query per inserire i dati e creare una nuova tupla
-    $sql = INSERT INTO personale (name, surname, birth_Date, gender, email, username, password) 
-    VALUES ('$name', '$surname', 'birthdate', '$gender', '$email', '$username', '$password');
-        
+    // esegue la query con i dati immessi
+    $stmt->execute([
+    $name,
+    $surname,
+    $birthdate,
+    $gender,
+    $email,
+    $username,
+    $hashed_password
+    ]);
+
+    // ritorno del messaggio di successo
+    $response['success'] = true;
+    $response['message'] = 'User registered successfully!';
+   
 } catch (PDOException $e) {
     // gestione degli errori e il logging, log the error messagein a real application(?)
     error_log("Database error: " . $e->application);
@@ -123,13 +130,9 @@ try {
         $response['debug'] = $e->getMessage();
     }
 }
-    /*
-if ($conn->query($sql) === TRUE) {
-    echo "Nuovo utente registrato con successo";
-} else {
-    echo "Errore: " . $sql . "<br>" . $conn->error;
-}*/
 
-$conn->close();
+// Return JSON response
+header('Content-Type: application/json');
+echo json_encode($response);
 
 ?>
