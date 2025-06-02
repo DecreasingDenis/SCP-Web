@@ -269,10 +269,50 @@
         .modal-body p {
             margin-bottom: 15px;
         }
+
+        /* Navbar superiore */
+        nav {
+            width: 100%;
+            background: rgba(30, 30, 30, 0.95);
+            border-bottom: 1.5px solid #b31b1b;
+            padding: 0.5rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        nav .nav-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            color: #e0e0e0;
+            border: 1px solid #b31b1b;
+            border-radius: 3px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: background 0.3s;
+        }
+
+        nav .nav-btn:hover {
+            background: rgba(179, 27, 27, 0.08);
+        }
+
+        /* Margine superiore per il contenuto principale */
+        .container {
+            margin-top: 80px;
+        }
     </style>
 </head>
 
 <body>
+    <!-- Barra di navigazione in alto -->
+    <nav style="width:100%;background:rgba(30,30,30,0.95);border-bottom:1.5px solid #b31b1b;padding: 0.5rem 0 0.5rem 0;position:fixed;top:0;left:0;z-index:100;">
+        <div style="max-width:500px;margin:0 auto;display:flex;justify-content:flex-end;gap:1rem;">
+            <a href="index.html" class="nav-btn" style="padding:0.5rem 1rem;background:transparent;color:#e0e0e0;border:1px solid #b31b1b;border-radius:3px;text-decoration:none;font-size:0.95rem;transition:background 0.3s;">Home Page</a>
+            <a href="login.html" class="nav-btn" style="padding:0.5rem 1rem;background:transparent;color:#e0e0e0;border:1px solid #b31b1b;border-radius:3px;text-decoration:none;font-size:0.95rem;transition:background 0.3s;">Sign in</a>
+        </div>
+    </nav>
+
     <div class="container">
         <h2>SCP Foundation Registration</h2>
         

@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCP Sign in</title>
     <style>
+         /* Variabili CSS per il tema SCP */
         :root {
-            --scp-bg: #18191c;
-            --scp-panel: #232427;
-            --scp-accent: #b31b1b;
-            --scp-accent-light: #e74c3c;
-            --scp-text: #e0e0e0;
-            --scp-label: #b0b0b0;
-            --scp-border: #333;
-            --scp-shadow: 0 2px 16px rgba(0,0,0,0.7);
+            --scp-bg: #18191c;                /* Colore di sfondo principale */
+            --scp-panel: #232427;             /* Sfondo del pannello */
+            --scp-accent: #b31b1b;            /* Colore principale di accento (rosso) */
+            --scp-accent-light: #e74c3c;      /* Accento più chiaro per hover/focus */
+            --scp-text: #e0e0e0;              /* Colore principale del testo */
+            --scp-label: #b0b0b0;             /* Colore delle etichette */
+            --scp-border: #333;               /* Colore dei bordi */
+            --scp-shadow: 0 2px 16px rgba(0,0,0,0.7); /* Ombra del pannello */
         }
 
+        /* Layout e stili generali */
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             max-width: 500px;
@@ -158,8 +160,18 @@
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
+
+    <!-- Barra di navigazione in alto -->
+    <nav style="width:100%;background:rgba(30,30,30,0.95);border-bottom:1.5px solid #b31b1b;padding: 0.5rem 0 0.5rem 0;position:fixed;top:0;left:0;z-index:100;">
+        <div style="max-width:500px;margin:0 auto;display:flex;justify-content:flex-end;gap:1rem;">
+            <a href="index.html" class="nav-btn" style="padding:0.5rem 1rem;background:transparent;color:#e0e0e0;border:1px solid #b31b1b;border-radius:3px;text-decoration:none;font-size:0.95rem;transition:background 0.3s;">Home Page</a>
+            <a href="registration.html" class="nav-btn" style="padding:0.5rem 1rem;background:transparent;color:#e0e0e0;border:1px solid #b31b1b;border-radius:3px;text-decoration:none;font-size:0.95rem;transition:background 0.3s;">Registration</a>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top:80px;">
         <div class="login-header">
             <h1>Welcome Back, Foundation Personnel</h1>
             <p>Please sign in to your account</p>
@@ -179,11 +191,12 @@
             <button type="submit" class="signin-btn" id="signBtn">
                 Sign In
             </button>
-        </form>
+        </form
     </div>
 
     <script>
-document.addEventListener('DOMContentLoaded', function() {
+    // Aspetta che il DOM sia completamente carico prima di eseguire gli script
+    document.addEventListener('DOMContentLoaded', function() {
     // Ottieni riferimenti agli elementi del DOM
     const form = document.getElementById('signinForm');
     const usernameInput = document.getElementById('usernameEmail');

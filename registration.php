@@ -22,9 +22,9 @@ try {
         //crea la connesione al database dall'interfaccia PDO con i dati in "config.php" e le opzioni appena dichiarate
     $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";   // DNS
     $options = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,        //configura PDO per lanciare eccezioni, permette di usare try/catch in modo pulito
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,             //configura PDO per lanciare eccezioni, permette di usare try/catch in modo pulito
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,   //Imposta il modo predefinito in cui PDO restituisce i risultati delle query
-        PDO::ATTR_EMULATE_PREPARES => false,                //Disabilita l'emulazione dei prepared statement forzandolo a usare veri prepared statements per una maggior esicurezza contro SQL injection
+        PDO::ATTR_EMULATE_PREPARES => false,                                    //Disabilita l'emulazione dei prepared statement forzandolo a usare veri prepared statements per una maggior esicurezza contro SQL injection
     ];
         
     $pdo = new PDO($dsn, $user, $pass, $options);
@@ -43,7 +43,7 @@ try {
     $confirm_password = $_POST['confirm_password'] ?? '';
     $terms = isset($_POST['terms']) ? $_POST['terms'] : '';
 
-    // Validazione (arrya per raccogliere tutti gli errori)
+    // Validazione (array per raccogliere tutti gli errori)
     $errors = [];
 
     // campi obbligatori
@@ -94,6 +94,7 @@ try {
     if (!empty($errors)) {
         $response['errors'] = $errors;
         $response['message'] = 'Please fix the following errors:';
+        header('Content-Type: application/json');   // Imposta il tipo di contenuto della risposta come JSON (così il browser sa come interpretare la risposta)
         echo json_encode($response);
         exit;
     }
