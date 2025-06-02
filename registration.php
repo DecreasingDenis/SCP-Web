@@ -121,8 +121,8 @@ try {
     $response['message'] = 'User registered successfully!';
    
 } catch (PDOException $e) {
-    // gestione degli errori e il logging, log the error messagein a real application(?)
-    error_log("Database error: " . $e->application);
+    // gestione degli errori e il logging
+    error_log("Database error: " . $e->getMessage());
     $response['message'] = 'Registration failed due to a database error.';
 
     //for debugging only (rimuovi dopo che hai finito di testare)
