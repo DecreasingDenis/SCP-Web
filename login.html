@@ -304,9 +304,11 @@
 
             // Gestione risposta dal server
             if (data.success) {
+                // Salva l'user_ID in sessionStorage
+                sessionStorage.setItem('user_ID', data.user.user_ID);                   // Salva l'ID utente in sessionStorage, Web API sicuro
                 showMessage(data.message || 'Login successful!', 'success');
                 setTimeout(() => {
-                    window.location.href = 'dashboard.php'; // Reindirizza dopo login
+                    window.location.href = 'index.php';
                 }, 1500);
             } else {
                 showMessage(data.message || 'Login failed. Please try again.', 'error', data.errors || []);

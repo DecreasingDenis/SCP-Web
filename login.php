@@ -79,7 +79,7 @@ try {
     }
 
     // Cerca l'utente nel database per username o email
-    $stmt = $pdo->prepare("SELECT id, username, email, password FROM personale WHERE username = ? OR email = ? LIMIT 1");   // Usa LIMIT 1 per evitare di prendere più di un record
+    $stmt = $pdo->prepare("SELECT user_ID, username, email, password, clearance_Level FROM personale WHERE username = ? OR email = ? LIMIT 1");  // Usa LIMIT 1 per evitare di prendere più di un record
     $stmt->execute([$usernameEmail, $usernameEmail]);
     $user = $stmt->fetch();     // Restituisce il risultato
 
@@ -118,10 +118,11 @@ try {
     // Login di successo
 
     // Avvia sessione utente
-    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['user_id'] = $user['user_ID'];
     $_SESSION['username'] = $user['username'];
-    $_SESSION['logged_in'] = true;       // Imposta un flag per indicare che l'utente è loggato
-    $_SESSION['login_time'] = time();   // Registra il tempo di login (perch boh?)
+    $_SESSION['clearance_Level'] = $user['clearance_Level']; // <-- AGGIUNGI QUESTA RIGA
+    $_SESSION['logged_in'] = true;
+    $_SESSION['login_time'] = time();
 
     // Pulisce i tentativi falliti
     $_SESSION['login_attempts'] = [];
@@ -130,7 +131,7 @@ try {
     $response['success'] = true;
     $response['message'] = 'Login successful! Welcome back.';
     $response['user'] = [
-        'id' => $user['id'],
+        'user_ID' => $user['user_ID'],
         'username' => $user['username'],
         'email' => $user['email']
     ];
@@ -140,10 +141,10 @@ try {
     error_log("Database error: " . $e->getMessage());
     $response['message'] = 'Login failed due to a database error.';
 
-    //for debugging only (rimuovi dopo che hai finito di testare)
+    /*for debugging only (rimuovi dopo che hai finito di testare)
     if (defined('DEBUG') && DEBUG) {
         $response['debug'] = $e->getMessage();
-    }
+    }*/
 }
 
 // Return JSON response

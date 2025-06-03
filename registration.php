@@ -126,10 +126,10 @@ try {
     error_log("Database error: " . $e->getMessage());
     $response['message'] = 'Registration failed due to a database error.';
 
-    //for debugging only (rimuovi dopo che hai finito di testare)
+    /*for debugging only (rimuovi dopo che hai finito di testare)
     if (defined('DEBUG') && DEBUG) {
         $response['debug'] = $e->getMessage();
-    }
+    }*/
 }
 
 // Return JSON response

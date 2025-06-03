@@ -122,12 +122,6 @@
         .threat-level::before {
             content: "THREAT LEVEL: ";
         }
-
-        /* Dynamic Threat Level */
-        .threat-level::after {
-            content: "NORMAL";
-            color: #0f0;
-        }
         
         /* Main Content */
         main {
@@ -370,49 +364,51 @@
 </head>
 <body>
     <!-- Breach Warning Modal (hidden by default) -->
-    <div class="breach-warning" id="breachWarning">
+    <div class="breach-warning" id="breachWarning" tabindex="0">
         <h3>CONTAINMENT BREACH DETECTED</h3>
         <p>Security protocols activated. All personnel report to designated safe zones.</p>
-        <button class="breach-warning-btn" id="dismissBreach">ACKNOWLEDGE</button>
+        <button class="breach-warning-btn" id="dismissBreach" tabindex="0">ACKNOWLEDGE</button>
     </div>
 
     <!-- Top Navigation Bar -->
-    <nav>
-        <!-- SCP of the Day Link -->
-        <a href="scp-of-the-day.html" class="scp-of-the-day">SCP OF THE DAY: <span id="currentSCP">SCP-●●●●</span></a>
-        
-        <!-- Navigation Links -->
-        <div class="nav-links">
-            <a href="login.html" class="nav-btn">Sign in</a>
-            <a href="registration.html" class="nav-btn">Registration</a>
-        </div>
-    </nav>
+    <header>
+        <nav role="navigation" aria-label="Main Navigation">
+            <!-- SCP of the Day Link -->
+            <a href="scp-of-the-day.html" class="scp-of-the-day" tabindex="1">SCP OF THE DAY: <span id="currentSCP">SCP-●●●●</span></a>
+            
+            <!-- Navigation Links -->
+            <div class="nav-links">
+                <a href="login.html" class="nav-btn" tabindex="2">Sign in</a>
+                <a href="registration.html" class="nav-btn" tabindex="3">Registration</a>
+            </div>
+        </nav>
+    </header>
     
     <!-- Threat Level Indicator -->
-    <div class="threat-level" id="threatLevel"></div>
+    <div class="threat-level" id="threatLevel" tabindex="4"><span id="threatLevelText">NORMAL</span></div>
     
     <!-- Main Content -->
     <main>
         <!-- Hero Section -->
-        <section class="hero">
-            <img src="scp-logo.png" alt="SCP Foundation Logo" class="logo">
-            <h1>SECURE. CONTAIN. PROTECT.</h1>
-            <p class="subtitle">
+        <section class="hero" tabindex="5">
+            <img src="scp-logo.png" alt="SCP Foundation Logo" class="logo" tabindex="6">
+            <h1 tabindex="7">SECURE. CONTAIN. PROTECT.</h1>
+            <p class="subtitle" tabindex="8">
                 The SCP Foundation is a <span class="redacted">[REDACTED]</span> organization entrusted by governments around the globe 
                 to contain and study anomalous entities, objects, and phenomena that <span class="redacted">[DATA EXPUNGED]</span> natural law.
             </p>
-            <button class="btn-reports" onclick="window.location.href='reports.html'">VIEW RECENT REPORTS</button>
+            <button class="btn-reports" onclick="window.location.href='reports.html'" tabindex="9">VIEW RECENT REPORTS</button>
         </section>
         
         <!-- Secure Section -->
-        <section class="scp-section">
-            <h2>Secure</h2>
-            <p>
+        <section class="scp-section" tabindex="10">
+            <h2 tabindex="11">Secure</h2>
+            <p tabindex="12">
                 The Foundation secures anomalies to prevent them from <span class="redacted">[CLASSIFIED]</span> into the wrong hands or affecting 
                 the general population. Our global network of <span class="redacted">[REDACTED]</span> facilities maintains constant vigilance,
                 equipped with <span class="redacted">[LEVEL 4 CLEARANCE REQUIRED]</span> containment systems tailored to each anomaly's unique properties.
             </p>
-            <p>
+            <p tabindex="13">
                 From simple locked containers to <span class="redacted">[OMITTED]</span> quantum-locking chambers, we develop specialized protocols
                 to neutralize or minimize the threat posed by each SCP. Our security measures are continuously
                 updated as we learn more about each anomaly's <span class="redacted">[RESTRICTED]</span> behavior and capabilities.
@@ -420,14 +416,14 @@
         </section>
         
         <!-- Contain Section -->
-        <section class="scp-section">
-            <h2>Contain</h2>
-            <p>
+        <section class="scp-section" tabindex="14">
+            <h2 tabindex="15">Contain</h2>
+            <p tabindex="16">
                 Containment is our primary mission. Each SCP requires unique procedures developed through <span class="redacted">[CONFIDENTIAL]</span>
                 testing and observation. Our teams of researchers work around the clock to understand anomalies
                 and develop effective containment strategies.
             </p>
-            <p>
+            <p tabindex="17">
                 Containment breaches are met with immediate response from our <span class="redacted">[MOBILE TASK FORCE]</span>. We maintain
                 strict protocols for retrieval and re-containment, with <span class="redacted">[AMNESTIC DISTRIBUTION]</span> procedures
                 to preserve the veil of normalcy when incidents occur in populated areas.
@@ -435,28 +431,28 @@
         </section>
         
         <!-- Protect Section -->
-        <section class="scp-section">
-            <h2>Protect</h2>
-            <p>
+        <section class="scp-section" tabindex="18">
+            <h2 tabindex="19">Protect</h2>
+            <p tabindex="20">
                 Protection extends beyond physical safety. We safeguard humanity's perception of reality,
                 maintaining the fragile illusion of a world governed by <span class="redacted">[KNOWN]</span> natural laws. Our information
                 security protocols are among the most stringent in existence.
             </p>
-            <p>
+            <p tabindex="21">
                 The Foundation operates globally to identify and neutralize threats before they can impact
                 civilian populations. When complete containment isn't possible, we develop <span class="redacted">[CONTINGENCY]</span> plans
                 and countermeasures to minimize risk to human life and civilization.
             </p>
 
             <!-- SCP Acronym Display -->
-            <div class="acronym">
+            <div class="acronym" tabindex="22">
                 <span>S</span>ECURE <span>C</span>ONTAIN <span>P</span>ROTECT
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer tabindex="23">
         <p>Unauthorized access is strictly prohibited. All activities are monitored.</p>
         <p class="warning">Security Clearance Level 1 or higher required for database access.</p>
     </footer>
@@ -475,7 +471,7 @@
                     }
                 });
             }, {
-                threshold: 0.1    // Trigger when 10% of section is visible
+                threshold: 0.15    // Trigger when 15% of section is visible
             });
 
             // Observe all sections
@@ -485,6 +481,7 @@
 
             // Threat Level Indicator Logic
             const threatLevel = document.getElementById('threatLevel');
+            const threatLevelText = document.getElementById('threatLevelText');
             const threatMessages = [
                 { level: "NORMAL", color: "#0f0" },
                 { level: "ELEVATED", color: "#ff0" },
@@ -499,8 +496,8 @@
 
                 // Update CSS variable and threat level display
                 threatLevel.style.setProperty('--threat-level', threatIndex);
-                threatLevel.querySelector('::after').textContent = threatMessages[threatIndex].level;
-                threatLevel.querySelector('::after').style.color = threatMessages[threatIndex].color;
+                threatLevelText.textContent = threatMessages[threatIndex].level;
+                threatLevelText.style.color = threatMessages[threatIndex].color;
             });
 
             // Random Breach Warning Function
