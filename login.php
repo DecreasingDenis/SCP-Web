@@ -119,8 +119,6 @@ try {
 
     // Avvia sessione utente
     $_SESSION['user_id'] = $user['user_ID'];
-    $_SESSION['username'] = $user['username'];
-    $_SESSION['clearance_Level'] = $user['clearance_Level']; // <-- AGGIUNGI QUESTA RIGA
     $_SESSION['logged_in'] = true;
     $_SESSION['login_time'] = time();
 

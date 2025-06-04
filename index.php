@@ -4,10 +4,32 @@ require_once 'config.php'; // Include the database configuration
 
 session_start(); // Start session before using $_SESSION
 
-// Get clearance level from session (set after login)
-$clearance = $_SESSION['clearance_Level'] ?? 0;
+$isLoggedIn = isset($_SESSION['user_id']);
+$clearance = 0;
+$username = '';
 
-// Choose DB Credentials based on clearance level
+// 1. Connect as root (or your generic user from config.php)
+$rootPdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+
+if ($isLoggedIn) {
+    // 2. Fetch user info using user_ID from session
+    $stmt = $rootPdo->prepare("SELECT * FROM personale WHERE user_ID = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $user = $stmt->fetch();
+
+    if ($user) {
+        $clearance = $user['clearance_Level'];
+        $username = $user['username'];
+    } else {
+        // User not found, force logout
+        session_unset();
+        session_destroy();
+        header("Location: login.html");
+        exit;
+    }
+}
+
+// 3. Choose DB Credentials based on clearance level
 switch ($clearance) {
     case 'O5':
         $db_user = 'scp_admin';
@@ -29,7 +51,7 @@ switch ($clearance) {
         break;
 }
 
-// Now connect to the DB with the right credentials
+// 4. Now connect to the DB with the right credentials for the rest of the page
 $pdo = new PDO("mysql:host=$host;dbname=$dbname", $db_user, $db_pass);
 
 // User info for display
