@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCP Sign in</title>
+    <style>
+         /* Variabili CSS per il tema SCP */
+        :root {
+            --scp-bg: #18191c;                /* Colore di sfondo principale */
+            --scp-panel: #232427;             /* Sfondo del pannello */
+            --scp-accent: #b31b1b;            /* Colore principale di accento (rosso) */
+            --scp-accent-light: #e74c3c;      /* Accento più chiaro per hover/focus */
+            --scp-text: #e0e0e0;              /* Colore principale del testo */
+            --scp-label: #b0b0b0;             /* Colore delle etichette */
+            --scp-border: #333;               /* Colore dei bordi */
+            --scp-shadow: 0 2px 16px rgba(0,0,0,0.7); /* Ombra del pannello */
+        }
+
+        /* Layout e stili generali */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: var(--scp-bg);
+            color: var(--scp-text);
+        }
+
+        .container {
+            background: var(--scp-panel);
+            padding: 32px;
+            border-radius: 8px;
+            box-shadow: var(--scp-shadow);
+            border: 1.5px solid var(--scp-border);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h1 {
+            color: var(--scp-accent);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px #000a;
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            color: var(--scp-label);
+            font-size: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--scp-label);
+            transition: color 0.3s;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+        }
+
+        label:focus-within,
+        label.label-focused {
+            color: var(--scp-accent-light);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1.5px solid var(--scp-border);
+            border-radius: 4px;
+            box-sizing: border-box;
+            background: #18191c;
+            color: var(--scp-text);
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--scp-accent);
+            box-shadow: 0 0 0 3px rgba(179, 27, 27, 0.18);
+            background: #232427;
+        }
+
+        .signin-btn {
+            background-color: var(--scp-accent);
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 8px #0004;
+        }
+
+        .signin-btn:hover,
+        .signin-btn:focus {
+            background-color: var(--scp-accent-light);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(179, 27, 27, 0.18);
+        }
+
+        .signin-btn:disabled {
+            background-color: #444;
+            cursor: not-allowed;
+        }
+
+        .message {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .message.success {
+            background-color: #223322;
+            color: #b6ffb6;
+            border: 1px solid #3c6;
+        }
+
+        .message.error {
+            background-color: #2a1818;
+            color: #ffb6b6;
+            border: 1px solid #b31b1b;
+        }
+
+        .error-list {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff40;
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .field-error {
+            border-color: var(--scp-accent-light) !important;
+            background: #2a1818 !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra di navigazione in alto -->
+    <nav style="width:100%;background:rgba(30,30,30,0.95);border-bottom:1.5px solid #b31b1b;padding: 0.5rem 0 0.5rem 0;position:fixed;top:0;left:0;z-index:100;">
+        <div style="max-width:500px;margin:0 auto;display:flex;justify-content:flex-end;gap:1rem;">
+            <a href="index.html" class="nav-btn" style="padding:0.5rem 1rem;background:transparent;color:#e0e0e0;border:1px solid #b31b1b;border-radius:3px;text-decoration:none;font-size:0.95rem;transition:background 0.3s;">Home Page</a>
+            <a href="registration.html" class="nav-btn" style="padding:0.5rem 1rem;background:transparent;color:#e0e0e0;border:1px solid #b31b1b;border-radius:3px;text-decoration:none;font-size:0.95rem;transition:background 0.3s;">Registration</a>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top:80px;">
+        <div class="login-header">
+            <h1>Welcome Back, Foundation Personnel</h1>
+            <p>Please sign in to your account</p>
+        </div>
+
+        <!-- Messaggio di errore o successo generale-->
+        <div id="generalError" class="message error"></div>
+        <div id="successMessage" class="message success"></div>
+
+        <form id="signinForm">
+            <label for="usernameEmail">Username or Email</label>
+            <input type="text" id="usernameEmail" name="usernameEmail" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" class="signin-btn" id="signBtn">
+                Sign In
+            </button>
+        </form
+    </div>
+
+    <script>
+    // Aspetta che il DOM sia completamente carico prima di eseguire gli script
+    document.addEventListener('DOMContentLoaded', function() {
+    // Ottieni riferimenti agli elementi del DOM
+    const form = document.getElementById('signinForm');
+    const usernameInput = document.getElementById('usernameEmail');
+    const passwordInput = document.getElementById('password');
+    const submitBtn = document.getElementById('signBtn');
+    const generalError = document.getElementById('generalError');
+    const successMessage = document.getElementById('successMessage');
+
+    // Funzione per mostrare messaggi di feedback (successo o errore)
+    function showMessage(message, type, errors = []) {
+        if (type === 'success') {
+            successMessage.textContent = message;
+            successMessage.classList.add('show');
+            generalError.classList.remove('show');
+        } else {
+            let html = `<strong>${message}</strong>`;
+            if (errors.length > 0) {
+                html += '<ul>';
+                errors.forEach(err => html += `<li>${err}</li>`);
+                html += '</ul>';
+            }
+            generalError.innerHTML = html;
+            generalError.classList.add('show');
+            successMessage.classList.remove('show');
+        }
+    }
+
+    // Funzione per nascondere i messaggi di feedback
+    function hideMessage() {
+        generalError.classList.remove('show');
+        successMessage.classList.remove('show');
+    }
+
+    // Funzione per evidenziare i campi con errori
+    function highlightErrors(errors) {
+        // Rimuove le evidenziazioni precedenti
+        [usernameInput, passwordInput].forEach(input => {
+            input.classList.remove('field-error');
+        });
+
+        // Evidenzia i campi in base agli errori ricevuti
+        errors.forEach(error => {
+            if (error.toLowerCase().includes('username') || error.toLowerCase().includes('email')) {
+                usernameInput.classList.add('field-error');
+            }
+            if (error.toLowerCase().includes('password')) {
+                passwordInput.classList.add('field-error');
+            }
+        });
+    }
+
+    // Rimuove l'evidenziazione errore quando l'utente inizia a digitare
+    form.addEventListener('input', function(e) {
+        if (e.target.classList.contains('field-error')) {
+            e.target.classList.remove('field-error');
+        }
+    });
+
+    // Funzione per mostrare/nascondere l'indicatore di caricamento sul pulsante
+    function setLoading(isLoading) {
+        if (isLoading) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span>Signing In...';
+        } else {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Sign In';
+        }
+    }
+
+    // Validazione lato client (controlla solo che i campi non siano vuoti)
+    function validateForm() {
+        const errors = [];
+        if (!usernameInput.value.trim()) errors.push('Username or email is required.');
+        if (!passwordInput.value) errors.push('Password is required.');
+        return errors;
+    }
+
+    // Gestione dell'invio del form
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault(); // Previene l'invio tradizionale del form (con ricarica pagina)
+        hideMessage();      // Nasconde eventuali messaggi precedenti
+
+        // Validazione lato client
+        const clientErrors = validateForm();
+        if (clientErrors.length > 0) {
+            showMessage('Please fix the following errors:', 'error', clientErrors);
+            highlightErrors(clientErrors);
+            return;
+        }
+
+        setLoading(true); // Mostra loading sul pulsante
+
+        // Prepara i dati del form per l'invio
+        const formData = new FormData();
+        formData.append('username', usernameInput.value.trim());
+        formData.append('password', passwordInput.value);
+
+        try {
+            // Invia i dati al server tramite Fetch API
+            const response = await fetch('login.php', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+
+            // Gestione risposta dal server
+            if (data.success) {
+                // Salva l'user_ID in sessionStorage
+                sessionStorage.setItem('user_ID', data.user.user_ID);                   // Salva l'ID utente in sessionStorage, Web API sicuro
+                showMessage(data.message || 'Login successful!', 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.php';
+                }, 1500);
+            } else {
+                showMessage(data.message || 'Login failed. Please try again.', 'error', data.errors || []);
+                highlightErrors(data.errors || []);
+            }
+        } catch (error) {
+            showMessage('Connection error. Please try again.', 'error');
+            console.error('Login error:', error);
+        } finally {
+            setLoading(false); // Nasconde loading
+        }
+    });
+});
+</script>
+</body>
+</html>

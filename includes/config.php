@@ -6,4 +6,4 @@ $pass = "";
 $dbname = "scpDatabase";
 
 // Set to true during development, false in production
-define('DEBUG', false);
+define('DEBUG', true);

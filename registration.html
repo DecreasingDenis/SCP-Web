@@ -1,0 +1,652 @@
+<!DOCTYPE html>>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCP Registration</title>
+    <style>
+        /* Variabili CSS per il tema SCP */
+        :root {
+            --scp-bg: #18191c;                /* Colore di sfondo principale */
+            --scp-panel: #232427;             /* Sfondo del pannello */
+            --scp-accent: #b31b1b;            /* Colore principale di accento (rosso) */
+            --scp-accent-light: #e74c3c;      /* Accento più chiaro per hover/focus */
+            --scp-text: #e0e0e0;              /* Colore principale del testo */
+            --scp-label: #b0b0b0;             /* Colore delle etichette */
+            --scp-border: #333;               /* Colore dei bordi */
+            --scp-shadow: 0 2px 16px rgba(0,0,0,0.7); /* Ombra del pannello */
+        }
+
+        /*Layout e contenitore principale */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: var(--scp-bg);
+            color: var(--scp-text);
+        }
+
+        .container {
+            background: var(--scp-panel);
+            padding: 32px;
+            border-radius: 8px;
+            box-shadow: var(--scp-shadow);
+            border: 1.5px solid var(--scp-border);
+        }
+
+        /* Titoli */
+        h2 {
+            text-align: center;
+            color: var(--scp-accent);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-shadow: 0 2px 8px #000a;
+        }
+
+        /* Etichette del form */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--scp-label);
+            transition: color 0.3s;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+        }
+
+        /* Evidenzia l'etichetta quando l'input è in focus */
+        label:focus-within,
+        label.label-focused {
+            color: var(--scp-accent-light);
+        }
+
+        /* Input e Select */
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1.5px solid var(--scp-border);
+            border-radius: 4px;
+            box-sizing: border-box;
+            background: #18191c;
+            color: var(--scp-text);
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+        }
+
+        /* Input in focus: bordo colorato e ombra leggera */
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--scp-accent);
+            box-shadow: 0 0 0 3px rgba(179, 27, 27, 0.18);
+            background: #232427;
+        }
+
+        /* Stile della checkbox (colore di accento) */
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            accent-color: var(--scp-accent);
+        }
+
+        input[type="checkbox"]:focus {
+            outline: 2px solid var(--scp-accent);
+            outline-offset: 2px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* Pulsante di invio */
+        .submit-btn {
+            background-color: var(--scp-accent);
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 8px #0004;
+        }
+
+        .submit-btn:hover,
+        .submit-btn:focus {
+            background-color: var(--scp-accent-light);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(179, 27, 27, 0.18);
+        }
+
+        .submit-btn:disabled {
+            background-color: #444;
+            cursor: not-allowed;
+        }
+
+        /* Messaggi di feedback */
+        .message {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .message.success {
+            background-color: #223322;
+            color: #b6ffb6;
+            border: 1px solid #3c6;
+        }
+
+        .message.error {
+            background-color: #2a1818;
+            color: #ffb6b6;
+            border: 1px solid #b31b1b;
+        }
+
+        .error-list {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        /* Indicatore di caricamento */
+        .loading {
+            text-align: center;
+            display: none;
+            color: var(--scp-accent-light);
+        }
+
+        /* Evidenziazione dei campi con errore */
+        .field-error {
+            border-color: var(--scp-accent-light) !important;
+            background: #2a1818 !important;
+        }
+
+        /* Link ai termini (apre il modal) */
+        .terms-link {
+            color: var(--scp-accent);
+            text-decoration: underline;
+            cursor: pointer;
+            border-radius: 2px;
+            padding: 1px 2px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .terms-link:hover,
+        .terms-link:focus {
+            color: var(--scp-accent-light);
+            background-color: rgba(179, 27, 27, 0.08);
+            outline: none;
+        }
+
+        /* Overlay e contenuto del Modal */
+        .modal {
+            display: none; /* Nascosto di default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(24, 25, 28, 0.92); /* Overlay scuro semi-trasparente */
+        }
+
+        .modal-content {
+            background-color: var(--scp-panel);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 80vh;
+            position: relative;
+            box-shadow: 0 4px 32px #000b;
+            border: 2px solid var(--scp-accent);
+            /* Il modal è centrato e scrollabile se il contenuto è troppo lungo */
+        }
+
+        /* Header del Modal e pulsante di chiusura*/
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--scp-border);
+            position: relative;
+            background: #18191c;
+        }
+
+        .modal-title {
+            margin: 0;
+            color: var(--scp-accent);
+        }
+
+        /* Pulsante di chiusura */
+        .close-btn, .close-button {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            width: 32px;
+            height: 32px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--scp-label);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .close-btn:hover, .close-btn:focus,
+        .close-button:hover, .close-button:focus {
+            background-color: #2a1818;
+            color: var(--scp-accent-light);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(179, 27, 27, 0.18);
+        }
+
+        /* ====== Corpo del Modal (scrollabile se necessario) ====== */
+        .modal-body {
+            padding: 20px;
+            max-height: 50vh; /* Previene che il modal superi la viewport */
+            overflow-y: auto;
+            line-height: 1.6;
+            color: var(--scp-text);
+        }
+
+        .modal-body h3 {
+            color: var(--scp-accent);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+        }
+
+        /* Navbar superiore */
+        nav {
+            width: 100%;
+            background: rgba(30, 30, 30, 0.95);
+            border-bottom: 1.5px solid #b31b1b;
+            padding: 0.5rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        nav .nav-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            color: #e0e0e0;
+            border: 1px solid #b31b1b;
+            border-radius: 3px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: background 0.3s;
+        }
+
+        nav .nav-btn:hover {
+            background: rgba(179, 27, 27, 0.08);
+        }
+
+        /* Margine superiore per il contenuto principale */
+        .container {
+            margin-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Barra di navigazione in alto -->
+    <nav style="width:100%;background:rgba(30,30,30,0.95);border-bottom:1.5px solid #b31b1b;padding: 0.5rem 0 0.5rem 0;position:fixed;top:0;left:0;z-index:100;">
+        <div style="max-width:500px;margin:0 auto;display:flex;justify-content:flex-end;gap:1rem;">
+            <a href="index.html" class="nav-btn" style="padding:0.5rem 1rem;background:transparent;color:#e0e0e0;border:1px solid #b31b1b;border-radius:3px;text-decoration:none;font-size:0.95rem;transition:background 0.3s;">Home Page</a>
+            <a href="login.html" class="nav-btn" style="padding:0.5rem 1rem;background:transparent;color:#e0e0e0;border:1px solid #b31b1b;border-radius:3px;text-decoration:none;font-size:0.95rem;transition:background 0.3s;">Sign in</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>SCP Foundation Registration</h2>
+        
+        <!-- Messaggio di stato -->
+        <div id="stateMessage" class="message"></div>
+        
+        <!-- indicatore di caricamento -->
+        <div id="loadingIndicator" class="loading">
+            <p>Processing registration...</p>
+        </div>
+
+        <form id="registrationForm" method="post">
+            <!-- Campo per il nome -->
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <!-- Campo per il cognome -->
+            <label for="surname">Surname:</label>
+            <input type="text" id="surname" name="surname" required>
+
+            <!-- Campo per la data di nascita -->
+            <label for="birthdate">Birth Date:</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+
+            <!-- Campo per il sesso -->
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <!-- Campo per la email -->
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <!-- Campo per il username -->
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <!-- Campo per la password -->
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <!-- Campo per la conferma della password -->
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+
+            <!-- Checkbox termini -->
+            <div class="checkbox-container">
+                <input type="checkbox" id="terms" name="terms" value="accepted" required>
+                <label for="terms">I accept the <span class="terms-link" id="termsLink" tabindex="0" role="button" aria-label="Open terms and conditions">terms and conditions</span></label>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Register</button>
+        </form>
+
+        <!-- Popup per i terms and condition del sito SCP, "modal" class è una sorta di popup che appare sopra al main content-->
+        <div id="termsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Terms and Conditions – SCP Foundation Registration</h2>
+                    <button id="closeModal" class="close-button" aria-label="Close">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                <p><strong>NOTICE:</strong> By proceeding with registration, you acknowledge and consent to the following stipulations under SCP Foundation Protocol-Ω/Online-01. Your compliance is not optional. Noncompliance may result in memory restructuring, forced detainment, or exposure to cognitohazardous deterrents.</p>
+                
+                <ol>
+                    <li>
+                    <strong>Confidentiality Clause:</strong> All activities, communications, and data exchanges within the SCP Foundation's digital framework are classified to outsiders. You waive all rights to personal data privacy while operating within Foundation cyberspace.
+                    </li>
+                    <li>
+                    <strong>Surveillance Consent:</strong> You acknowledge that all interactions, biometric data, and behavioral patterns (including but not limited to cursor movement, typing speed, retinal dilation, and passive thought emissions) will be monitored, logged, and analyzed by Foundation AI constructs for security and anomaly detection.
+                    </li>
+                    <li>
+                    <strong>Existence Disclosure Waiver:</strong> You understand that your registration constitutes implicit agreement to be omitted from all civilian records, including medical, financial, and existential databases, pending Foundation review.
+                    </li>
+                    <li>
+                    <strong>Memetic Exposure Risk:</strong> By continuing, you agree that exposure to memetic agents, cognitohazards, or encrypted antimemetic data is a statistical likelihood. The Foundation is not liable for any neural instability resulting from unprotected access.
+                    </li>
+                    <li>
+                    <strong>Facility Interaction Protocol:</strong> Upon physical entry into any SCP Foundation installation, you relinquish all rights to spatial autonomy. Your movements, conversations, and neural emissions will be remotely governed via internal tracking and compliance systems.
+                    </li>
+                    <li>
+                    <strong>Security Override Clause:</strong> You grant the Foundation full authorization to override personal electronic devices, implant neurosync protocols, or induce remote blackout if your behavior triggers any Class-Digital Containment protocols.
+                    </li>
+                    <li>
+                    <strong>Termination Clause:</strong> The Foundation reserves the right to nullify this agreement at any time, with or without your knowledge, and enforce Protocol Euthanatos-94 if your data integrity is compromised or if anomalous influences are detected.
+                    </li>
+                    <li>
+                    <strong>Forgetfulness Assurance:</strong> If you choose to revoke your registration, amnestic therapy will be administered. You will not recall this page, the SCP Foundation, or the fact that you ever attempted to access it.
+                    </li>
+                </ol>
+                
+                    <p>By checking the box on the registration form, you confirm that you have <strong>read, understood, and consent</strong> to the above conditions. You further acknowledge that your compliance is being logged, and any attempt to feign misunderstanding may result in disciplinary containment or cognitive scrubbing procedures.</p>
+                </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        // Aspetta che il DOM sia completamente carico prima di eseguire gli script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ottiene i riferimenti a elementi importanti del DOM
+            const form = document.getElementById('registrationForm');
+            // Messaggio di stato per feedback utente
+            const messageDiv = document.getElementById('stateMessage');
+            // Indicatore di caricamento
+            const loadingDiv = document.getElementById('loadingIndicator');
+            // Pulsante di submit
+            const submitBtn = document.getElementById('submitBtn');
+            // Modal del terms and conditions
+            const termsModal = document.getElementById('termsModal');
+            const termsLink = document.getElementById('termsLink');
+            // Pulsante per chiudere il modal
+            const closeModal = document.getElementById('closeModal');
+
+            // Gestione focus delle label
+            const inputs = form.querySelectorAll('input, select');
+            const labels = form.querySelectorAll('label[for]');
+
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    const label = form.querySelector(`label[for="${this.id}"]`);
+                    if (label) {
+                        label.classList.add('label-focused');
+                    }
+                });
+
+                input.addEventListener('blur', function() {
+                    const label = form.querySelector(`label[for="${this.id}"]`);
+                    if (label) {
+                        label.classList.remove('label-focused');
+                    }
+                });
+            });
+
+            // Gestione click su label per focus input
+            labels.forEach(label => {
+                label.addEventListener('click', function() {
+                    const targetId = this.getAttribute('for');
+                    const targetInput = document.getElementById(targetId);
+                    if (targetInput) {
+                        targetInput.focus();
+                    }
+                });
+            });
+
+            // Gestione modal Terms and Conditions
+            function openModal() {
+                termsModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                closeModal.focus(); // Focus sul pulsante di chiusura
+            }
+            function closeModalFunc() {
+                termsModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                termsLink.focus(); // Ritorna focus sul link
+            }
+            termsLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+            });
+
+            // Gestione Enter e Space su terms link (il link in blu che apre il popup)
+            termsLink.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openModal();
+                }
+            });
+
+            // Eventi di chiusura del modal 
+            // Gestisce il click sul pulsante di chiusura del modal
+            closeModal.addEventListener('click', closeModalFunc);
+            // Chiudi modal cliccando fuori
+            termsModal.addEventListener('click', function(e) {
+                if (e.target === termsModal) {
+                    closeModalFunc();
+                }
+            });
+            // Chiudi modal con tasto ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && termsModal.style.display === 'block') {
+                    closeModalFunc();
+                }
+            });
+
+            // Funzione per mostrare messaggi provenienti dal backend php
+            function showMessage(message, type, errors = []) {
+                messageDiv.className = `message ${type}`;
+                
+                if (type === 'error' && errors.length > 0) {
+                    let errorHtml = `<strong>${message}</strong><ul class="error-list">`;
+                    errors.forEach(error => {
+                        errorHtml += `<li>${error}</li>`;   // Aggiunge ogni errore come elemento di lista numerata
+                    });
+                    errorHtml += '</ul>';
+                    messageDiv.innerHTML = errorHtml;
+                } else {   
+                    messageDiv.innerHTML = `<strong>${message}</strong>`;   // Se non ci sono errori, mostra solo il messaggio
+                }
+                
+                messageDiv.style.display = 'block';     
+                messageDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Funzione per nascondere messaggi
+            function hideMessage() {
+                messageDiv.style.display = 'none';
+            }
+
+            // Funzione per evidenziare campi con errori
+            function highlightErrors(errors) {
+                // Rimuovi evidenziazioni precedenti
+                document.querySelectorAll('.field-error').forEach(field => {
+                    field.classList.remove('field-error');
+                });
+
+                // Evidenzia campi con errori basandosi sui messaggi
+                errors.forEach(error => {
+                    if (error.includes('Name')) document.getElementById('name').classList.add('field-error');
+                    if (error.includes('Surname')) document.getElementById('surname').classList.add('field-error');
+                    if (error.includes('Birth date')) document.getElementById('birthdate').classList.add('field-error');
+                    if (error.includes('Gender')) document.getElementById('gender').classList.add('field-error');
+                    if (error.includes('Email')) document.getElementById('email').classList.add('field-error');
+                    if (error.includes('Username')) document.getElementById('username').classList.add('field-error');
+                    if (error.includes('Password')) {
+                        document.getElementById('password').classList.add('field-error');
+                        document.getElementById('confirm_password').classList.add('field-error');
+                    }
+                });
+            }
+
+            // Validazione lato client, per prevenire invio del form se ci sono errori (comunque il server farà una validazione più completa per accertarsi )
+            function validateForm() {
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm_password').value;
+                const terms = document.getElementById('terms').checked;
+
+                let errors = [];    // Array per raccogliere gli errori di validazione
+
+                if (password.length < 8) {
+                    errors.push('Password must be at least 8 characters long.');
+                }
+
+                if (password !== confirmPassword) {
+                    errors.push('Passwords do not match.');
+                }
+
+                if (!terms) {
+                    errors.push('You must accept the terms and conditions.');
+                }
+
+                return errors;
+            }   //il controllo a lato client si farà solo sui campi di password e checkbox
+
+            // Gestione submit del form
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault(); // Previene il submit normale del form, nel caso di un form evita che la pagina venga ricaritata o che venga inviato in modo "tradizionale" cioè ricaricando
+
+                hideMessage();  // Nasconde eventuali messaggi di validazione precedenti
+
+                // Validazione lato client
+                const clientErrors = validateForm();
+                if (clientErrors.length > 0) {
+                    showMessage('Please fix the following errors:', 'error', clientErrors);
+                    highlightErrors(clientErrors);
+                    return;
+                }
+
+                // Mostra loading
+                loadingDiv.style.display = 'block';
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Registering to the Foundation...';
+
+                // Invia il form al server usando Fetch API
+                try {
+                    const formData = new FormData(form);    // Crea un oggetto FormData con i dati del form
+                    
+                    // Invia i dati al server
+                    const response = await fetch('registration.php', {  
+                        method: 'POST',     // Invia i dati come POST (ovviamente)
+                        body: formData      // Invia i dati dell'oggetto form
+                    });
+
+                    // Gestione risposta del server (da PHP tramite JSON)
+                    const data = await response.json();
+                    if (data.success) {
+                        showMessage(data.message, 'success');
+                        form.reset(); // Pulisce il form
+                        
+                        // Reindirizza dopo 10 secondi
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 10000);
+                    } else {
+                        showMessage(data.message, 'error', data.errors || []);
+                        highlightErrors(data.errors || []);
+                    }
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    showMessage('An error occurred. Please try again.', 'error');
+                } finally {
+                    // Nascondi loading
+                    loadingDiv.style.display = 'none';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Register';
+                }
+            });
+
+            // Rimuovi evidenziazione errori quando l'utente inizia a digitare
+            form.addEventListener('input', function(e) {
+                if (e.target.classList.contains('field-error')) {
+                    e.target.classList.remove('field-error');
+                }
+            });
+
+            // Validazione password in tempo reale
+            document.getElementById('confirm_password').addEventListener('input', function() {
+                const password = document.getElementById('password').value;
+                const confirmPassword = this.value;
+                
+                if (confirmPassword && password !== confirmPassword) {
+                    this.style.borderColor = '#dc3545';
+                } else {
+                    this.style.borderColor = '#ddd';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
